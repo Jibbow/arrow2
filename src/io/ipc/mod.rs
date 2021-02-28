@@ -23,10 +23,10 @@
 #[allow(clippy::extra_unused_lifetimes)]
 #[allow(clippy::redundant_static_lifetimes)]
 #[allow(clippy::redundant_field_names)]
-pub mod gen;
+pub(crate) mod gen;
 
 mod common;
-mod convert;
+pub(crate) mod convert;
 pub mod read;
 pub mod write;
 

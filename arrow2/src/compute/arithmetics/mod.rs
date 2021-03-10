@@ -110,13 +110,6 @@ pub fn arithmetic(lhs: &dyn Array, op: Operator, rhs: &dyn Array) -> Result<Box<
                 .map(Box::new)
                 .map(|x| x as Box<dyn Array>)
         }
-        DataType::Decimal(_, _) => {
-            let lhs = lhs.as_any().downcast_ref::<Int128Array>().unwrap();
-            let rhs = rhs.as_any().downcast_ref::<Int128Array>().unwrap();
-            arithmetic_primitive(lhs, op, rhs)
-                .map(Box::new)
-                .map(|x| x as Box<dyn Array>)
-        }
         _ => Err(ArrowError::NotYetImplemented(format!(
             "Arithmetics between {:?} is not supported",
             data_type

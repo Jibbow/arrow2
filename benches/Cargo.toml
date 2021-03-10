@@ -1,0 +1,39 @@
+[package]
+name = "benches"
+version = "0.0.0"
+publish = false
+edition = "2018"
+
+[dependencies]
+chrono = "^0.4"
+
+[dev-dependencies]
+arrow2 = { path = "../arrow2" }
+rand = "0.7"
+criterion = "0.3"
+tempfile = "3"
+flate2 = "1"
+
+[lib]
+name = "benches"
+bench = false
+
+[[bench]]
+name = "take_kernels"
+harness = false
+
+[[bench]]
+name = "filter_kernels"
+harness = false
+
+[[bench]]
+name = "cast_kernels"
+harness = false
+
+[[bench]]
+name = "sort_kernel"
+harness = false
+
+[[bench]]
+name = "length_kernel"
+harness = false

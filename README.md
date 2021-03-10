@@ -7,12 +7,24 @@ It is a re-write of the [official Arrow crate](https://github.com/apache/arrow) 
 
 See [the guide](https://jorgecarleitao.github.io/arrow2/).
 
-## Run unit tests
+## Development
+
+### Running tests
+
+To run the tests, use
 
 ```bash
 git clone git@github.com:jorgecarleitao/arrow2.git
 cd arrow2
 cargo test
+```
+
+This is a normal Rust project. Clone and run tests with `cargo test`.
+
+To run a bench, use 
+
+```bash
+cargo bench -p benches --bench filter_kernels
 ```
 
 The test suite is a _superset_ of all integration tests that the original implementation has against golden files from the arrow project. It currently makes no attempt to test the implementation against other implementations in arrow's master; it assumes that arrow's golden files are sufficient to cover the specification. This crate uses both little and big endian golden files, as it supports both endianesses at IPC boundaries.
@@ -40,10 +52,6 @@ The test suite is a _superset_ of all integration tests that the original implem
 2. bring documentation up to speed
 3. compute kernels
 4. auto-vectorization of bitmap operations
-
-## How to develop
-
-This is a normal Rust project. Clone and run tests with `cargo test`.
 
 ## FAQ
 

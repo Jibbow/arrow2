@@ -127,11 +127,6 @@ pub fn compare(lhs: &dyn Array, rhs: &dyn Array, operator: Operator) -> Result<B
             let rhs = rhs.as_any().downcast_ref::<Utf8Array<i64>>().unwrap();
             utf8::compare(lhs, rhs, operator)
         }
-        DataType::Decimal(_, _) => {
-            let lhs = lhs.as_any().downcast_ref::<Int128Array>().unwrap();
-            let rhs = rhs.as_any().downcast_ref::<Int128Array>().unwrap();
-            primitive::compare(lhs, rhs, operator)
-        }
         _ => Err(ArrowError::NotYetImplemented(format!(
             "Comparison between {:?} is not supported",
             data_type

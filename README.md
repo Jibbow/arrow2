@@ -1,4 +1,4 @@
-# Arrow2: Transmute-free Arrow
+# Arrow2: Transmute-free Arrow test
 
 ![test](https://github.com/jorgecarleitao/arrow2/actions/workflows/test.yml/badge.svg)
 

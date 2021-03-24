@@ -1,4 +1,4 @@
-# Arrow2
+# Arrow2 test
 
 Arrow2 is a Rust library that implements data structures and functionality enabling
 interoperability with the arrow format.

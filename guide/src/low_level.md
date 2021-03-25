@@ -1,17 +1,27 @@
 # Low end API
 
-The starting point of this crate is the idea that data must be stored in memory in a specific arrangement to be interoperable with Arrow's ecosystem. With this in mind, this crate does not use `Vec` but instead has its own containers to store data, including sharing and consuming it via FFI.
+The starting point of this crate is the idea that data must be stored in memory in a specific
+arrangement to be interoperable with Arrow's ecosystem.
+With this in mind, this crate does not use `Vec` but instead has its own containers to store data,
+including sharing and consuming it via FFI.
 
-The most important design decision of this crate is that contiguous regions are shared via an `Arc`. In this context, the operation of slicing a memory region is `O(1)` because it corresponds to changing an offset and length. The tradeoff is that once under an `Arc`, memory regions are immutable.
+The most important design decision of this crate is that contiguous regions are shared via an `Arc`.
+In this context, the operation of slicing a memory region is `O(1)` because it corresponds to
+changing an offset and length.
+The tradeoff is that once under an `Arc`, memory regions are immutable.
 
-The second important aspect is that Arrow has two main types of data buffers: bitmaps, whose offsets are measured in bits, and byte types (such as `i23`), whose offsets are measured in bytes. With this in mind, this crate has 2 main types of containers of contiguous memory regions:
+The second important aspect is that Arrow has two main types of data buffers:
+bitmaps, whose offsets are measured in bits, and byte types (such as `i23`), whose offsets are
+measured in bytes.
+With this in mind, this crate has 2 main types of containers of contiguous memory regions:
 
 * `Buffer<T>`: handle contiguous memory regions of type T whose offsets are measured in items
 * `Bitmap`: handle contiguous memory regions of bits whose offsets are measured in bits
 
 These hold _all_ data-related memory in this crate.
 
-Due to their intrinsic immutability, each container has a corresponding mutable (and non-sharable) variant:
+Due to their intrinsic immutability, each container has a corresponding mutable (and non-sharable)
+variant:
 
 * `MutableBuffer<T>`
 * `MutableBitmap`
@@ -47,8 +57,8 @@ assert_eq!(x.as_slice(), &[0.0, 1.0, 2.0]);
 
 In this context, `MutableBuffer` is the closest API to rust's `Vec`.
 
-The following demonstrates how to efficiently 
-perform an operation from an iterator of [TrustedLen](https://doc.rust-lang.org/std/iter/trait.TrustedLen.html):
+The following demonstrates how to efficiently perform an operation from an iterator of
+[TrustedLen][trusted-len-iter]:
 
 ```rust
 # use std::iter::FromIterator;
@@ -64,3 +74,6 @@ assert_eq!(y.as_slice()[50], 100);
 Using `from_trusted_len_iter` often causes the compiler to auto-vectorize.
 
 We will now see how these containers are used in higher-level structures: Arrays.
+
+
+[trusted-len-iter]: https://doc.rust-lang.org/std/iter/trait.TrustedLen.html
